@@ -13,9 +13,9 @@ PORT = int(os.getenv('PORT', 5005))
 
 # Service URLs (update these with your EC2 instance IPs)
 SERVICES = {
-    'auth': 'http://localhost:5001',
-    'transaction': 'http://localhost:5002',
-    'category': 'http://localhost:5003'
+    'auth':        'http://3.80.26.104:5001',
+    'transaction': 'http://54.234.62.56:5002',
+    'category':    'http://3.90.215.34:5003',
 }
 
 def verify_jwt(f):
