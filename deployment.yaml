@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: api-gateway
+        image: pr0meth4us/api-gateway:latest
+        ports:
+        - containerPort: 5001
+        env:
+        - name: PORT
+          value: "5001"
+        - name: AUTH_SERVICE_URL
+          value: "http://auth-service:5002"
+        - name: CATEGORY_SERVICE_URL
+          value: "http://category-service:5003"
+        - name: TRANSACTION_SERVICE_URL
+          value: "http://transaction-service:5004"
+        - name: REDIS_HOST
+          value: "redis-15904.crce185.ap-seast-1-1.ec2.redns.redis-cloud.com"
+        - name: REDIS_PORT
+          value: "15904"
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: my-secrets
+              key: jwt_secret
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: my-secrets
+              key: redis_password
